@@ -16,30 +16,16 @@ const NavBar = () => {
 
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/menu">Our Menu</Link></li>
-        <li><Link to="/order/salad">Order Food</Link></li>
-        <li><Link to="/secret">Secret</Link></li>
-        <li>
-            <Link to="/dashboard/cart">
-                <button className="btn">
-                    <FaShoppingCart className="mr-2"></FaShoppingCart>
-                    <div className="badge badge-secondary">+{cart.length}</div>
-                </button>
-            </Link>
-        </li>
-        {
-            user ? <>
-                {/* <span>{user?.displayName}</span> */}
-                <button onClick={handleLogOut} className="btn btn-ghost">LogOut</button>
-            </> : <>
-                <li><Link to="/login">Login</Link></li>
-            </>
-        }
+        <li><Link to="/order">All Contest</Link></li>
+        <li><Link to="/order/contact">Contact Us</Link></li>
+
+
+    
     </>
 
     return (
         <>
-            <div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
+            <div className="navbar  z-10 bg-orrange-400 max-w-screen-xl bg-black text-white">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -49,15 +35,50 @@ const NavBar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a>
+                    <a className="btn btn-ghost normal-case text-xl">Contest Platform</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {navOptions}
                     </ul>
                 </div>
-                <div className="navbar-end">
-                    <a className="btn">Get started</a>
+
+                <div className=" lg:navbar-end flex items-center gap-5">
+
+                    {user ? (
+                        <div className='flex items-center border-2 border-solid border-orange-500 pl-1 rounded-[50px]'>
+                            <h1 className='font-bold text-sm md:text-sm lg:text-lg md:w-[160px]'>{user?.displayName}</h1>
+
+                            <div className="dropdown dropdown-end">
+                                <label tabIndex={0} className="btn m-1 btn-ghost btn-circle avatar border-2 border-solid border-black ">
+                                    <button><img className="w-10 rounded-full border-orange-100" src={user?.photoURL} alt="User Avatar" /></button>
+                                </label>
+                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 my-2 shadow bg-base-100 rounded-box sm:w-48 md:w-52 lg:w-56">
+
+                                    {user?.email ? (
+                                        <div className="text-black flex flex-col items-center">
+                                            <>
+                                               
+                                                <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
+                                                    <Link to="/dashboard/cart">
+                                                        Dashboard
+                                                    </Link>
+                                                </li>
+                                                <button onClick={handleLogOut} className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Sign Out</button>
+                                            </>
+                                        </div>
+                                    ) : (
+                                        <li className=' '> </li>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    ) : (
+                        <Link to="/login">
+                            <button className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Login</button>
+                        </Link>
+                    )}
+
                 </div>
             </div>
         </>

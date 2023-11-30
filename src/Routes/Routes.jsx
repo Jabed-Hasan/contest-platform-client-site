@@ -16,6 +16,11 @@ import AddItems from "../pages/Dashboard/AddItems/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItems from "../pages/Dashboard/ManageItems/ManageItems";
 import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
+import Details from "../pages/Shared/MenuItem/Details";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import WinningContest from "../Layout/WinningContest";
+import Profile from "../Layout/Profile";
+import Contac from "../Layout/Contac";
 
 
   export const router = createBrowserRouter([
@@ -32,8 +37,19 @@ import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
           element: <Menu></Menu>
         },
         {
-          path: 'order/:category',
-          element: <Order></Order>
+          path: 'details/:id', 
+          element: <PrivateRoute><Details></Details></PrivateRoute>,
+         loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+        },
+        {
+          path: 'timer/:id', 
+          element: <PrivateRoute><Details></Details></PrivateRoute>,
+         loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+        },
+        {
+          path: '/order',
+          element: <Order></Order>,
+          //loader: () => fetch(`http://localhost:5000/menu`)
         },
         {
           path: 'login',
@@ -42,6 +58,10 @@ import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
         {
           path: 'signup',
           element: <SignUp></SignUp>
+        },
+        {
+          path: '/order/contact',
+          element: <Contac></Contac>
         },
         {
           path: 'secret',
@@ -58,6 +78,18 @@ import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
           path: 'cart',
           element: <Cart></Cart>
         },
+        {
+          path: '/dashboard/payment',
+          element: <Payment></Payment>
+        },
+        {
+          path: '/dashboard/winnings',
+          element: <WinningContest></WinningContest>
+        },
+        {
+          path: '/dashboard/profile',
+          element: <Profile></Profile>
+        },
 
         // admin only routes
         {
@@ -68,6 +100,7 @@ import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
           path: 'manageItems',
           element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
         },
+        
         {
           path: 'updateItem/:id',
           element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
@@ -76,6 +109,7 @@ import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
         {
           path: 'users',
           element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+
         }
 
       ]

@@ -27,8 +27,14 @@ const AddItems = () => {
                 name: data.name,
                 category: data.category,
                 price: parseFloat(data.price),
-                recipe: data.recipe,
+                details: data.details,
+                prizeMoney: data.prizeMoney,
+                taskSubmissionText:data.taskSubmissionText,
+                ContestDeadline:data.ContestDeadline,
+                
+
                 image: res.data.data.display_url
+
             }
             // 
             const menuRes = await axiosSecure.post('/menu', menuItem);
@@ -50,16 +56,16 @@ const AddItems = () => {
 
     return (
         <div>
-            <SectionTitle heading="add an item" subHeading="What's new?" ></SectionTitle>
+            <SectionTitle heading="add a contest" subHeading="What's new?" ></SectionTitle>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control w-full my-6">
                         <label className="label">
-                            <span className="label-text">Recipe Name*</span>
+                            <span className="label-text">Contest Name*</span>
                         </label>
                         <input
                             type="text"
-                            placeholder="Recipe Name"
+                            placeholder="Contest Name"
                             {...register('name', { required: true })}
                             required
                             className="input input-bordered w-full" />
@@ -73,11 +79,11 @@ const AddItems = () => {
                             <select defaultValue="default" {...register('category', { required: true })}
                                 className="select select-bordered w-full">
                                 <option disabled value="default">Select a category</option>
-                                <option value="salad">Salad</option>
-                                <option value="pizza">Pizza</option>
-                                <option value="soup">Soup</option>
-                                <option value="dessert">Dessert</option>
-                                <option value="drinks">Drinks</option>
+                                <option value="Buisness">Buisness</option>
+                                <option value="Medical">Medical</option>
+                                <option value="Article">Article</option>
+                                <option value="Gaming">Gaming</option>
+                                <option value="WebApp">WebApp</option>
                             </select>
                         </div>
 
@@ -94,12 +100,46 @@ const AddItems = () => {
                         </div>
 
                     </div>
-                    {/* recipe details */}
+                    <div className="flex gap-6">
+                        {/* category */}
+                          {/* price */}
+                          <div className="form-control w-full my-6">
+                            <label className="label">
+                                <span className="label-text">Price Money*</span>
+                            </label>
+                            <input
+                                type="number"
+                                placeholder="Price Money"
+                                {...register('prizeMoney', { required: true })}
+                                className="input input-bordered w-full" />
+                        </div>
+
+                        {/* price */}
+                        <div className="form-control w-full my-6">
+                <label className="label">
+                    <span className="label-text">Contest Deadline*</span>
+                </label>
+                <input
+                    type="date"
+                    {...register('ContestDeadline', { required: true })}
+                    className="input input-bordered w-full"
+                    onInput={handleSubmit(onSubmit)}
+                />
+            </div>
+
+                    </div>
+                    {/* details details */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Recipe Details</span>
+                            <span className="label-text">Contest Details</span>
                         </label>
-                        <textarea {...register('recipe')} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                        <textarea {...register('details')} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Task Submissions</span>
+                        </label>
+                        <textarea {...register('taskSubmissionText')} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
                     </div>
 
                     <div className="form-control w-full my-6">
@@ -107,7 +147,7 @@ const AddItems = () => {
                     </div>
 
                     <button className="btn">
-                        Add Item <FaUtensils className="ml-4"></FaUtensils>
+                        Add Contest <FaUtensils className="ml-4"></FaUtensils>
                     </button>
                 </form>
             </div>

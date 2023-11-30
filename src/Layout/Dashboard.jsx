@@ -45,30 +45,30 @@ const Dashboard = () => {
                         </>
                             :
                             <>
-                                <li>
+                                {/* <li>
                                     <NavLink to="/dashboard/userHome">
                                         <FaHome></FaHome>
                                         User Home</NavLink>
-                                </li>
-                                <li>
+                                </li> */}
+                                {/* <li>
                                     <NavLink to="/dashboard/reservation">
                                         <FaCalendar></FaCalendar>
                                         Reservation</NavLink>
-                                </li>
+                                </li> */}
                                 <li>
                                     <NavLink to="/dashboard/cart">
                                         <FaShoppingCart></FaShoppingCart>
-                                        My Cart ({cart.length})</NavLink>
+                                        My Participated Contest ({cart.length})</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/review">
+                                    <NavLink to="/dashboard/profile">
                                         <FaAd></FaAd>
-                                        Add a Review</NavLink>
+                                        My Profile</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/bookings">
+                                    <NavLink to="/dashboard/winnings">
                                         <FaList></FaList>
-                                        My Bookings</NavLink>
+                                        My Wining Contest</NavLink>
                                 </li>
                             </>
                     }
@@ -80,7 +80,7 @@ const Dashboard = () => {
                             Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/order/salad">
+                        <NavLink to="/order">
                             <FaSearch></FaSearch>
                             Menu</NavLink>
                     </li>

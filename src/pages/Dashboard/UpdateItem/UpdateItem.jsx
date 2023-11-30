@@ -53,70 +53,102 @@ const UpdateItem = () => {
     
     return (
         <div>
-            <SectionTitle heading="Update an Item" subHeading="Refresh info"></SectionTitle>
-            <div>
-                <form onSubmit={handleSubmit(onSubmit)}>
+        <SectionTitle heading="add a contest" subHeading="What's new?" ></SectionTitle>
+        <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text">Contest Name*</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Contest Name"
+                        {...register('name', { required: true })}
+                        required
+                        className="input input-bordered w-full" />
+                </div>
+                <div className="flex gap-6">
+                    {/* category */}
                     <div className="form-control w-full my-6">
                         <label className="label">
-                            <span className="label-text">Recipe Name*</span>
+                            <span className="label-text">Category*</span>
+                        </label>
+                        <select defaultValue="default" {...register('category', { required: true })}
+                            className="select select-bordered w-full">
+                            <option disabled value="default">Select a category</option>
+                            <option value="Buisness">Buisness</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Article">Article</option>
+                            <option value="Gaming">Gaming</option>
+                            <option value="WebApp">WebApp</option>
+                        </select>
+                    </div>
+
+                    {/* price */}
+                    <div className="form-control w-full my-6">
+                        <label className="label">
+                            <span className="label-text">Price*</span>
                         </label>
                         <input
-                            type="text"
-                            defaultValue={name}
-                            placeholder="Recipe Name"
-                            {...register('name', { required: true })}
-                            required
+                            type="number"
+                            placeholder="Price"
+                            {...register('price', { required: true })}
                             className="input input-bordered w-full" />
                     </div>
-                    <div className="flex gap-6">
-                        {/* category */}
-                        <div className="form-control w-full my-6">
-                            <label className="label">
-                                <span className="label-text">Category*</span>
-                            </label>
-                            <select defaultValue={category} {...register('category', { required: true })}
-                                className="select select-bordered w-full">
-                                <option disabled value="default">Select a category</option>
-                                <option value="salad">Salad</option>
-                                <option value="pizza">Pizza</option>
-                                <option value="soup">Soup</option>
-                                <option value="dessert">Dessert</option>
-                                <option value="drinks">Drinks</option>
-                            </select>
-                        </div>
 
-                        {/* price */}
-                        <div className="form-control w-full my-6">
-                            <label className="label">
-                                <span className="label-text">Price*</span>
-                            </label>
-                            <input
-                                type="number"
-                                defaultValue={price}
-                                placeholder="Price"
-                                {...register('price', { required: true })}
-                                className="input input-bordered w-full" />
-                        </div>
-
-                    </div>
-                    {/* recipe details */}
-                    <div className="form-control">
+                </div>
+                <div className="flex gap-6">
+                    {/* category */}
+                      {/* price */}
+                      <div className="form-control w-full my-6">
                         <label className="label">
-                            <span className="label-text">Recipe Details</span>
+                            <span className="label-text">Price Money*</span>
                         </label>
-                        <textarea defaultValue={recipe} {...register('recipe')} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                        <input
+                            type="number"
+                            placeholder="Price Money"
+                            {...register('prizeMoney', { required: true })}
+                            className="input input-bordered w-full" />
                     </div>
 
+                    {/* price */}
                     <div className="form-control w-full my-6">
-                        <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
-                    </div>
-
-                    <button className="btn">
-                        Update menu Item
-                    </button>
-                </form>
-            </div>
+            <label className="label">
+                <span className="label-text">Contest Deadline*</span>
+            </label>
+            <input
+                type="date"
+                {...register('ContestDeadline', { required: true })}
+                className="input input-bordered w-full"
+                onInput={handleSubmit(onSubmit)}
+            />
         </div>
+
+                </div>
+                {/* details details */}
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Contest Details</span>
+                    </label>
+                    <textarea {...register('details')} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Task Submissions</span>
+                    </label>
+                    <textarea {...register('taskSubmissionText')} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                </div>
+
+                <div className="form-control w-full my-6">
+                    <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
+                </div>
+
+                <button className="btn">
+                    Add Contest 
+                </button>
+            </form>
+        </div>
+    </div>
     );
 };
 

@@ -11,12 +11,13 @@ import slide4 from '../../../assets/home/slide4.jpg';
 import slide5 from '../../../assets/home/slide5.jpg';
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
+
 const Category = () => {
     return (
-        <section>
-            <SectionTitle 
-            subHeading={"From 11.00am to 10.00pm"}
-            heading={"Order Online"}
+        <section className="text-center">
+            <SectionTitle
+                subHeading={"Previous Winners"}
+                heading={"Contest Winners"}
             ></SectionTitle>
             <Swiper
                 slidesPerView={4}
@@ -28,29 +29,34 @@ const Category = () => {
                 modules={[Pagination]}
                 className="mySwiper mb-24"
             >
+                <div>
                 <SwiperSlide>
-                    <img src={slide1} alt="" />
-                    <h3 className="text-4xl uppercase text-center -mt-16 text-white">Salads</h3>
+                    <img  className="w-[260px] h-[230px]" src="https://i.ibb.co/qydRRp1/happy-winner-portrait-beautiful-teen-260nw-1396308722.webp" alt="" />
+             
+                    <h3  className="w-[260px] h-[230px]" className="text-xl uppercase text-center -mt-1 text-black">Gaming Campions</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide2} alt="" />
-                    <h3 className="text-4xl uppercase text-center -mt-16 text-white">Pizzas</h3>
+                    <img  className="w-[260px] h-[230px]" src= "https://i.ibb.co/k0840kQ/happy-winner-portrait-handsome-teen-260nw-1355939219.webp" alt="" />
+                    <h3 className="text-xl uppercase text-center -mt-1 text-black">Best Content-Writer</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide3} alt="" />
-                    <h3 className="text-4xl uppercase text-center -mt-16 text-white">Soups</h3>
+                    <img  className="w-[260px] h-[230px]" src="https://i.ibb.co/z4x6Gmh/image.png"alt="" />
+                    <h3 className="text-xl uppercase text-center -mt-1 text-black">FPS-Gaming Chamipon</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide4} alt="" />
-                    <h3 className="text-4xl uppercase text-center -mt-16 text-white">Desserts</h3>
+                    <img  className="w-[260px] h-[230px]" src="https://i.ibb.co/tqQNhfw/image.png" alt="" />
+                    <h3 className="text-xl uppercase text-center -mt-1 text-black">Best Programmer</h3>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide5} alt="" />
-                    <h3 className="text-4xl uppercase text-center -mt-16 text-white">Salads</h3>
+                    <img  className="w-[260px] h-[230px]" src="https://i.ibb.co/YQcRqZQ/image.png" alt="" />
+                    <h3 className="text-xl uppercase text-center -mt-1 text-black">Poetry Champion</h3>
                 </SwiperSlide>
+                </div>
             </Swiper>
         </section>
     );
 };
 
 export default Category;
+
+

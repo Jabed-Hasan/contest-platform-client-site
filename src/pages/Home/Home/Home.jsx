@@ -9,13 +9,15 @@ const Home = () => {
     return (
         <div>
             <Helmet>
-                <title>Bistro Boss | Home</title>
+                <title>Contest Platform | Home</title>
             </Helmet>
             <Banner></Banner>
-            <Category></Category>
+
             <PopularMenu></PopularMenu>
             <Featured></Featured>
+            <Category></Category>
             <Testimonials></Testimonials>
+       
         </div>
     );
 };
