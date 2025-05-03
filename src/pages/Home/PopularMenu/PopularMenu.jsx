@@ -76,7 +76,7 @@ const PopularMenu = () => {
       )}
       
       <div className="text-center mt-10">
-        <Link to={'/order'}>
+        <Link to={'/contests'}>
           <button className="btn btn-primary">
             View All Contests
           </button>

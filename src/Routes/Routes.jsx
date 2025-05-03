@@ -4,7 +4,7 @@ import {
 import Main from "../Layout/Main";
 import Home from "../pages/Home/Home/Home";
 import Menu from "../pages/Menu/Menu/Menu";
-import Order from "../pages/Order/Order/Order";
+import Contest from "../pages/Order/Order/Order";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
@@ -54,8 +54,12 @@ import About from "../pages/Shared/NavBar/About";
          loader: ({params}) => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu/${params.id}`)
         },
         {
+          path: '/contests',
+          element: <Contest></Contest>,
+        },
+        {
           path: '/order',
-          element: <Order></Order>,
+          element: <Contest></Contest>,
           //loader: () => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu`)
         },
         {
@@ -67,7 +71,7 @@ import About from "../pages/Shared/NavBar/About";
           element: <SignUp></SignUp>
         },
         {
-          path: '/order/contact',
+          path: '/contact',
           element: <Contac></Contac>
         },
         {

@@ -41,7 +41,7 @@ const Featured = () => {
                                         <span className="text-blue-400">✓</span> Global recognition
                                     </li>
                                 </ul>
-                                <Link to={'/order'}>
+                                <Link to={'/contests'}>
                                     <button className="btn btn-primary mt-4">
                                         Explore All Contests
                                     </button>

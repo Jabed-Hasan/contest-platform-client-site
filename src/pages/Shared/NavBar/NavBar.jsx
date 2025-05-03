@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAdmin from "../../../hooks/useAdmin";
 import useCreator from "../../../hooks/useCreator";
@@ -8,102 +8,129 @@ const defaultProfileImage = 'https://i.ibb.co/7gnnx9J/profile-Image-934e5b10.png
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log(user)
     const [isAdmin] = useAdmin();
     const [isCreator] = useCreator();
+    const location = useLocation();
 
     const handleLogOut = () => {
         logOut()
             .then(() => { })
-            .catch(error => console.log(error));
+            .catch(error => console.error('Logout error:', error));
     }
 
-    const navOptions = <>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/order">All Contest</Link></li>
-        <li><Link to="/order/contact">Abouts Us</Link></li>
-        <li><Link to="/about">Contact Us</Link></li>
-    </>
+    const isActive = (path) => {
+        return location.pathname === path ? 
+            "bg-blue-600 text-white" : "";
+    };
+
+    const navLinks = [
+        { to: "/", label: "Home" },
+        { to: "/contests", label: "All Contests" },
+        { to: "/about", label: "About Us" },
+        { to: "/contact", label: "Contact Us" }
+    ];
 
     return (
-        <>
-            <div className="navbar  z-10 bg-orrange-400 max-w-screen-xl bg-black text-white">
+        <div className="sticky top-0 z-50 w-full shadow-md bg-black text-white">
+            <div className="navbar max-w-7xl mx-auto px-4 py-2">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            {navOptions}
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-black">
+                            {navLinks.map((link, index) => (
+                                <li key={index}>
+                                    <Link 
+                                        to={link.to} 
+                                        className={`${isActive(link.to)} hover:bg-blue-500 hover:text-white`}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">Contest Platform</a>
+                    <Link to="/" className="btn btn-ghost normal-case text-lg md:text-xl font-bold">
+                        <span className="hidden sm:inline">Contest Platform</span>
+                        <span className="sm:hidden">CP</span>
+                    </Link>
                 </div>
+                
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        {navOptions}
+                    <ul className="menu menu-horizontal px-1 space-x-1">
+                        {navLinks.map((link, index) => (
+                            <li key={index}>
+                                <Link 
+                                    to={link.to} 
+                                    className={`px-4 py-2 rounded-md ${isActive(link.to)} hover:bg-blue-600 hover:text-white`}
+                                >
+                                    {link.label}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
-                <div className="lg:navbar-end flex items-center gap-5">
+                <div className="navbar-end">
                     {user ? (
-                        <div className='flex items-center border-2 border-solid border-gray-500 pl-1 rounded-[50px]'>
-                            <h1 className='font-bold text-sm md:text-sm lg:text-lg md:w-[160px]'>{user?.displayName}</h1>
+                        <div className="flex items-center border border-gray-500 rounded-full pr-1 bg-gray-800">
+                            <div className="hidden sm:block max-w-[100px] md:max-w-[160px] truncate px-3">
+                                <span className="font-medium text-sm">{user?.displayName}</span>
+                            </div>
 
                             <div className="dropdown dropdown-end">
-                                <label tabIndex={0} className="btn m-1 btn-ghost btn-circle avatar border-2 border-solid border-white ">
-                                    <button>
-                                        <img className="w-10 rounded-full border-white" src={user?.photoURL || defaultProfileImage} alt="User Avatar" />
-                                    </button>
+                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar border border-gray-400">
+                                    <div className="w-10 rounded-full">
+                                        <img src={user?.photoURL || defaultProfileImage} alt="User" className="w-full h-full object-cover" />
+                                    </div>
                                 </label>
-                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 my-2 shadow bg-base-100 rounded-box sm:w-48 md:w-52 lg:w-56">
-                                    {user?.email ? (
-                                        <div className="text-black flex flex-col items-center">
-                                            <>
-                                                <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
-                                                    <Link to="dashboard/userHome">
-                                                        Dashboard
-                                                    </Link>
-                                                </li>
-                                                <button onClick={handleLogOut} className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Sign Out</button>
-                                            </>
-                                        </div>
-                                    ) : isAdmin ? (
-                                        <div className="text-black flex flex-col items-center">
-                                            <>
-                                                <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
-                                                    <Link to="dashboard/adminHome">
-                                                        Dashboard
-                                                    </Link>
-                                                </li>
-                                                <button onClick={handleLogOut} className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Sign Out</button>
-                                            </>
-                                        </div>
-                                    ) : isCreator ? (
-                                        <div className="text-black flex flex-col items-center">
-                                            <>
-                                                <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
-                                                    <Link to="dashboard/creatorHome">
-                                                        Dashboard
-                                                    </Link>
-                                                </li>
-                                                <button onClick={handleLogOut} className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Sign Out</button>
-                                            </>
-                                        </div>
-                                    ) : (
-                                        <li className=' '> </li>
-                                    )}
+                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-lg w-60 mt-2 text-black">
+                                    <div className="px-4 py-2 border-b border-gray-200">
+                                        <p className="font-bold truncate">{user?.displayName}</p>
+                                        <p className="text-sm text-gray-500 truncate">{user?.email}</p>
+                                    </div>
+                                    
+                                    <li>
+                                        <Link to="/dashboard/userHome" className="py-2 hover:bg-gray-100">
+                                            Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/dashboard/profile" className="py-2 hover:bg-gray-100">
+                                            Profile
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={handleLogOut} 
+                                            className="py-2 text-red-500 hover:bg-red-50"
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     ) : (
-                        <Link to="/login">
-                            <button className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Login</button>
-                        </Link>
+                        <div className="flex gap-2">
+                            <Link to="/login">
+                                <button className="btn btn-sm md:btn-md bg-blue-600 hover:bg-blue-700 text-white border-none">
+                                    Login
+                                </button>
+                            </Link>
+                            <Link to="/signup" className="hidden sm:block">
+                                <button className="btn btn-sm md:btn-md btn-outline text-blue-500 hover:bg-blue-600 hover:text-white">
+                                    Sign Up
+                                </button>
+                            </Link>
+                        </div>
                     )}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
