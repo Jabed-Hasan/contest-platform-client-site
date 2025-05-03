@@ -21,13 +21,13 @@ import Details from "../pages/Shared/MenuItem/Details";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import WinningContest from "../Layout/WinningContest";
 import Profile from "../Layout/Profile";
-import Contac from "../Layout/Contac";
+import AboutUs from "../Layout/Contac";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import CreatorRoute from "./CreatorRoute";
 import { ListSubheader } from "@mui/material";
 import Leaerboard from "../Layout/Leaerboard";
-import About from "../pages/Shared/NavBar/About";
+import Contact from "../pages/Shared/NavBar/About";
 
 
   export const router = createBrowserRouter([
@@ -72,11 +72,11 @@ import About from "../pages/Shared/NavBar/About";
         },
         {
           path: '/contact',
-          element: <Contac></Contac>
+          element: <Contact></Contact>
         },
         {
           path: '/about',
-          element: <About></About>,
+          element: <AboutUs></AboutUs>,
         },
         {
           path: 'secret',
