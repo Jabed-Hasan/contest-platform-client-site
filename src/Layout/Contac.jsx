@@ -9,7 +9,7 @@ const Contac = () => {
     <Helmet>
                 <meta charSet="utf-8" />
                 <title>About - Lets Explore About Us </title>
-                <link rel="canonical" href="http://mysite.com/example" />
+                <link rel="canonical" href="http://mysite.com/gmail" />
             </Helmet>
       <h1 className='text-2xl md:text-4xl lg:text-5xl font-bold text-center my-10'>About Us </h1>
      <div className='grid md:grid-cols-3 lg:grid-cols-3 mx-20'>

@@ -7,17 +7,18 @@ import Testimonials from "../Testimonials/Testimonials";
 
 const Home = () => {
     return (
-        <div>
+        <div className="space-y-16">
             <Helmet>
                 <title>Contest Platform | Home Page</title>
             </Helmet>
+            
             <Banner></Banner>
-
-            <PopularMenu></PopularMenu>
-            <Featured></Featured>
-            <Category></Category>
-            <Testimonials></Testimonials>
-       
+            <div className="max-w-7xl mx-auto px-4">
+                <PopularMenu></PopularMenu>
+                <Category></Category>
+                <Featured></Featured>
+                <Testimonials></Testimonials>
+            </div>
         </div>
     );
 };

@@ -1,12 +1,16 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
-import { FaShoppingCart } from 'react-icons/fa';
-import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
+import useCreator from "../../../hooks/useCreator";
+
+const defaultProfileImage = 'https://i.ibb.co/7gnnx9J/profile-Image-934e5b10.png';
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const [cart] = useCart();
+    console.log(user)
+    const [isAdmin] = useAdmin();
+    const [isCreator] = useCreator();
 
     const handleLogOut = () => {
         logOut()
@@ -17,10 +21,8 @@ const NavBar = () => {
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/order">All Contest</Link></li>
-        <li><Link to="/order/contact">Contact Us</Link></li>
-
-
-    
+        <li><Link to="/order/contact">Abouts Us</Link></li>
+        <li><Link to="/about">Contact Us</Link></li>
     </>
 
     return (
@@ -43,24 +45,45 @@ const NavBar = () => {
                     </ul>
                 </div>
 
-                <div className=" lg:navbar-end flex items-center gap-5">
-
+                <div className="lg:navbar-end flex items-center gap-5">
                     {user ? (
-                        <div className='flex items-center border-2 border-solid border-orange-500 pl-1 rounded-[50px]'>
+                        <div className='flex items-center border-2 border-solid border-gray-500 pl-1 rounded-[50px]'>
                             <h1 className='font-bold text-sm md:text-sm lg:text-lg md:w-[160px]'>{user?.displayName}</h1>
 
                             <div className="dropdown dropdown-end">
-                                <label tabIndex={0} className="btn m-1 btn-ghost btn-circle avatar border-2 border-solid border-black ">
-                                    <button><img className="w-10 rounded-full border-orange-100" src={user?.photoURL} alt="User Avatar" /></button>
+                                <label tabIndex={0} className="btn m-1 btn-ghost btn-circle avatar border-2 border-solid border-white ">
+                                    <button>
+                                        <img className="w-10 rounded-full border-white" src={user?.photoURL || defaultProfileImage} alt="User Avatar" />
+                                    </button>
                                 </label>
                                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 my-2 shadow bg-base-100 rounded-box sm:w-48 md:w-52 lg:w-56">
-
                                     {user?.email ? (
                                         <div className="text-black flex flex-col items-center">
                                             <>
-                                               
                                                 <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
-                                                    <Link to="/dashboard/cart">
+                                                    <Link to="dashboard/userHome">
+                                                        Dashboard
+                                                    </Link>
+                                                </li>
+                                                <button onClick={handleLogOut} className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Sign Out</button>
+                                            </>
+                                        </div>
+                                    ) : isAdmin ? (
+                                        <div className="text-black flex flex-col items-center">
+                                            <>
+                                                <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
+                                                    <Link to="dashboard/adminHome">
+                                                        Dashboard
+                                                    </Link>
+                                                </li>
+                                                <button onClick={handleLogOut} className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Sign Out</button>
+                                            </>
+                                        </div>
+                                    ) : isCreator ? (
+                                        <div className="text-black flex flex-col items-center">
+                                            <>
+                                                <li className='w-[190px] items-center bg-gray-400 rounded-md my-2'>
+                                                    <Link to="dashboard/creatorHome">
                                                         Dashboard
                                                     </Link>
                                                 </li>
@@ -78,7 +101,6 @@ const NavBar = () => {
                             <button className="btn bg-orange-400 text-white hover:text-black text-sm md:text-base lg:text-sm">Login</button>
                         </Link>
                     )}
-
                 </div>
             </div>
         </>

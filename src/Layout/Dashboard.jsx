@@ -1,14 +1,15 @@
-import { FaAd, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
+import { FaAd, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
-
+import useCreator from "../hooks/useCreator";
 
 const Dashboard = () => {
     const [cart] = useCart();
 
     // TODO: get isAdmin value from the database
     const [isAdmin] = useAdmin();
+    const [isCreator] = useCreator();
 
     return (
         <div className="flex">
@@ -22,34 +23,40 @@ const Dashboard = () => {
                                     <FaHome></FaHome>
                                     Admin Home</NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/dashboard/addItems">
-                                    <FaUtensils></FaUtensils>
-                                    Add Items</NavLink>
-                            </li>
+                           
                             <li>
                                 <NavLink to="/dashboard/manageItems">
                                     <FaList></FaList>
-                                    Manage Items</NavLink>
+                                    Manage Contests</NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/dashboard/bookings">
-                                    <FaBook></FaBook>
-                                    Manage Bookings</NavLink>
-                            </li>
+                           
                             <li>
                                 <NavLink to="/dashboard/users">
                                     <FaUsers></FaUsers>
                                     All Users</NavLink>
                             </li>
+                        </>   :
+                        
+                        
+                        isCreator ? <>
+                               <li>
+                                <NavLink to="/dashboard/addItems">
+                                
+                                    Add Contest</NavLink>
+                            </li>
+                               <li>
+                                <NavLink to="/dashboard/myItems">
+                                    
+                                    My Added Contest</NavLink>
+                            </li>
                         </>
                             :
                             <>
-                                {/* <li>
+                                <li>
                                     <NavLink to="/dashboard/userHome">
                                         <FaHome></FaHome>
                                         User Home</NavLink>
-                                </li> */}
+                                </li>
                                 {/* <li>
                                     <NavLink to="/dashboard/reservation">
                                         <FaCalendar></FaCalendar>
@@ -87,7 +94,12 @@ const Dashboard = () => {
                     <li>
                         <NavLink to="/order/contact">
                             <FaEnvelope></FaEnvelope>
-                            Contact</NavLink>
+                            About</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="leaderboard">
+                            
+                            LeaderBoard</NavLink>
                     </li>
                 </ul>
             </div>

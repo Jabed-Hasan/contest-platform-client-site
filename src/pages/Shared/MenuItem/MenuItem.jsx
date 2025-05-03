@@ -14,13 +14,13 @@ const truncateText = (text, words) => {
 
 const MenuItem = ({ item }) => {
   const { name, image, price, details, attemptCount, _id } = item;
-  const truncatedDetails = truncateText(details, 15);
+  const truncatedDetails = truncateText(details, 20);
 
   return (
     <div className="space-x-2">
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
-          <CardMedia component="img" height="140" image={image} alt="Contest image" />
+          <CardMedia className='w-[340px] h-[195px]' component="img" height="140" image={image} alt="Contest image" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}

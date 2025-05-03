@@ -1,15 +1,17 @@
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import useMenu from "../../../hooks/useMenu";
+import useMenuCreator from "../../../hooks/useMenuCreator";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 
 const ManageItems = () => {
-    const [menu, , refetch] = useMenu();
+    const [menu, , refetch] = useMenuCreator();
     const axiosSecure = useAxiosSecure();
-
+     const user = useContext(AuthContext);
     const handleDeleteItem = (item) => {
         Swal.fire({
             title: "Are you sure?",
@@ -42,7 +44,7 @@ const ManageItems = () => {
 
     return (
         <div>
-            <SectionTitle heading="Manage All Contest" subHeading="Hurry up"></SectionTitle>
+            <SectionTitle heading="My Created Contest" subHeading="Hurry up"></SectionTitle>
             <div>
                 <div className="overflow-x-auto">
                     <table className="table w-full">
@@ -56,7 +58,7 @@ const ManageItems = () => {
                                 <th>Item Name</th>
                                 <th>Price</th>
                                 <th>Update</th>
-                                <th>Delete</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +79,7 @@ const ManageItems = () => {
                                     <td>
                                         {item.name}
                                     </td>
-                                    <td className="text-right">${item.price}</td>
+                                    <td className="text-center ">${item.price}</td>
                                     <td>
                                         <Link to={`/dashboard/updateItem/${item._id}`}>
                                             <button
@@ -87,13 +89,7 @@ const ManageItems = () => {
                                             </button>
                                         </Link>
                                     </td>
-                                    <td>
-                                        <button
-                                            onClick={() => handleDeleteItem(item)}
-                                            className="btn btn-ghost btn-lg">
-                                            <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                                        </button>
-                                    </td>
+                                    
                                 </tr>)
                             }
                         </tbody>

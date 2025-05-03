@@ -13,6 +13,7 @@ import Dashboard from "../Layout/Dashboard";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AddItems from "../pages/Dashboard/AddItems/AddItems";
+import MyAddedItems from "../pages/Dashboard/MyAddedItems/MyAddedItems";
 import AdminRoute from "./AdminRoute";
 import ManageItems from "../pages/Dashboard/ManageItems/ManageItems";
 import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
@@ -21,6 +22,12 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import WinningContest from "../Layout/WinningContest";
 import Profile from "../Layout/Profile";
 import Contac from "../Layout/Contac";
+import UserHome from "../pages/Dashboard/UserHome/UserHome";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import CreatorRoute from "./CreatorRoute";
+import { ListSubheader } from "@mui/material";
+import Leaerboard from "../Layout/Leaerboard";
+import About from "../pages/Shared/NavBar/About";
 
 
   export const router = createBrowserRouter([
@@ -39,17 +46,17 @@ import Contac from "../Layout/Contac";
         {
           path: 'details/:id', 
           element: <PrivateRoute><Details></Details></PrivateRoute>,
-         loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+         loader: ({params}) => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu/${params.id}`)
         },
         {
           path: 'timer/:id', 
           element: <PrivateRoute><Details></Details></PrivateRoute>,
-         loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+         loader: ({params}) => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu/${params.id}`)
         },
         {
           path: '/order',
           element: <Order></Order>,
-          //loader: () => fetch(`http://localhost:5000/menu`)
+          //loader: () => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu`)
         },
         {
           path: 'login',
@@ -64,9 +71,14 @@ import Contac from "../Layout/Contac";
           element: <Contac></Contac>
         },
         {
+          path: '/about',
+          element: <About></About>,
+        },
+        {
           path: 'secret',
           element: <PrivateRoute><Secret></Secret></PrivateRoute>
-        }
+        },
+       
       ]
     },
     {
@@ -74,28 +86,53 @@ import Contac from "../Layout/Contac";
       element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       children: [
         // normal user routes
+
+        {
+             path: 'userHome',
+             element: <UserHome></UserHome>
+
+        },
         {
           path: 'cart',
           element: <Cart></Cart>
         },
         {
-          path: '/dashboard/payment',
+          path: 'leaderboard',
+          element: <PrivateRoute><Leaerboard></Leaerboard></PrivateRoute>
+        },
+        {
+          path: 'payment',
           element: <Payment></Payment>
         },
         {
-          path: '/dashboard/winnings',
+          path: 'winnings',
           element: <WinningContest></WinningContest>
         },
         {
-          path: '/dashboard/profile',
+          path: 'profile',
           element: <Profile></Profile>
+        },
+        //creator route 
+        {
+          path: 'addItems',
+          element: <CreatorRoute><AddItems></AddItems></CreatorRoute>
+        },
+        {
+          path: 'myItems',
+          element: <CreatorRoute> <MyAddedItems></MyAddedItems> </CreatorRoute>
+        },
+        {
+          path: 'updateItem/:id',
+          element: <UpdateItem></UpdateItem>,
+          loader: ({params}) => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu/${params.id}`)
         },
 
         // admin only routes
         {
-          path: 'addItems',
-          element: <AdminRoute><AddItems></AddItems></AdminRoute>
+          path:'adminHome',
+          element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
         },
+        
         {
           path: 'manageItems',
           element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
@@ -103,8 +140,8 @@ import Contac from "../Layout/Contac";
         
         {
           path: 'updateItem/:id',
-          element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+          element: <UpdateItem></UpdateItem>,
+          loader: ({params}) => fetch(`https://b8a12-server-side-jabed-hasan.vercel.app/menu/${params.id}`)
         },
         {
           path: 'users',

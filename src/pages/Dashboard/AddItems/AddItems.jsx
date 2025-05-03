@@ -4,6 +4,8 @@ import { FaUtensils } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { useContext } from "react";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -12,6 +14,8 @@ const AddItems = () => {
     const { register, handleSubmit, reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const { user } = useContext(AuthContext);
+    //console.log(user.email)
     const onSubmit = async (data) => {
         console.log(data)
         // image upload to imgbb and then get an url
@@ -29,9 +33,10 @@ const AddItems = () => {
                 price: parseFloat(data.price),
                 details: data.details,
                 prizeMoney: data.prizeMoney,
-                taskSubmissionText:data.taskSubmissionText,
-                ContestDeadline:data.ContestDeadline,
-                
+                email: data.email,
+                taskSubmissionText: data.taskSubmissionText,
+                ContestDeadline: data.ContestDeadline,
+
 
                 image: res.data.data.display_url
 
@@ -39,7 +44,7 @@ const AddItems = () => {
             // 
             const menuRes = await axiosSecure.post('/menu', menuItem);
             console.log(menuRes.data)
-            if(menuRes.data.insertedId){
+            if (menuRes.data.insertedId) {
                 // show success popup
                 reset();
                 Swal.fire({
@@ -48,10 +53,10 @@ const AddItems = () => {
                     title: `${data.name} is added to the menu.`,
                     showConfirmButton: false,
                     timer: 1500
-                  });
+                });
             }
         }
-        console.log( 'with image url', res.data);
+        console.log('with image url', res.data);
     };
 
     return (
@@ -102,8 +107,8 @@ const AddItems = () => {
                     </div>
                     <div className="flex gap-6">
                         {/* category */}
-                          {/* price */}
-                          <div className="form-control w-full my-6">
+                        {/* price */}
+                        <div className="form-control w-full my-6">
                             <label className="label">
                                 <span className="label-text">Price Money*</span>
                             </label>
@@ -116,18 +121,35 @@ const AddItems = () => {
 
                         {/* price */}
                         <div className="form-control w-full my-6">
-                <label className="label">
-                    <span className="label-text">Contest Deadline*</span>
-                </label>
-                <input
-                    type="date"
-                    {...register('ContestDeadline', { required: true })}
-                    className="input input-bordered w-full"
-                    onInput={handleSubmit(onSubmit)}
-                />
-            </div>
+                            <label className="label">
+                                <span className="label-text">Contest Deadline*</span>
+                            </label>
+                            <input
+                                type="date"
+                                {...register('ContestDeadline', { required: true })}
+                                className="input input-bordered w-full"
+                                onInput={handleSubmit(onSubmit)}
+                            />
+                        </div>
 
                     </div>
+                    <div className="flex gap-6">
+    {/* category */}
+    {/* price */}
+    <div className="form-control w-full my-6">
+        <label className="label">
+            <span className="label-text">Email*</span>
+        </label>
+        <input
+            type="text"
+            placeholder="Enter Logged in Email"
+            defaultValue={user?.email || ''}
+            {...register('email', { required: true })}
+            className="input input-bordered w-full"
+        />
+    </div>
+</div>
+
                     {/* details details */}
                     <div className="form-control">
                         <label className="label">
@@ -146,8 +168,8 @@ const AddItems = () => {
                         <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
                     </div>
 
-                    <button className="btn">
-                        Add Contest <FaUtensils className="ml-4"></FaUtensils>
+                    <button className="btn ">
+                        Add Contest 
                     </button>
                 </form>
             </div>

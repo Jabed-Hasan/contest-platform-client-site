@@ -1,10 +1,8 @@
-import React from 'react';
-import useMenu from '../../../hooks/useMenu';
-import DetailsCard from './DetailsCard';
-import { Link, useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { useLoaderData, useLocation, useNavigate} from 'react-router-dom';
 import Cover from '../Cover/Cover';
 import { IoMdPricetags } from "react-icons/io";
-import { IoIosPeople } from "react-icons/io";
+
 import App from './CountDoun/App';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
